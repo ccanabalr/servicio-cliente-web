@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base/base::head(light)">
+<meta charset="UTF-8" />
+</head>
+<body>
+	<header th:replace="base/base::header(light)"></header>
+
+	<div class="container" style="padding-top: 3em;">
+		<div class="card bg-light">
+			<div class="card-header">
+				<h3 th:text="${titulo}"></h3>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/proyectos/guardar}" th:object="${proyecto}" method="post"action="">
+					<input type="hidden" th:field="*{id}">
+					<div class="form-group">
+						<label th:text="'Fecha inicio: '"></label> 
+						<input class="form-control"type="date" th:field="*{fechaInicio}" />
+					</div>
+					<div class="form-group">
+						<label th:text="'Fecha estimada fin: '"></label> 
+						<input class="form-control"type="date" th:field="*{fechaEstimadaFin}" />
+					</div>
+					<div class="form-group">
+						<label th:text="'Recursos: '"></label> 
+						<input class="form-control"type="text" th:field="*{recursos}" />
+					</div>
+					<div class="form-group">
+						<label th:text="'Presupuesto: '"></label> 
+						<input class="form-control"  type="number"  th:field="*{presupuesto}" />
+					</div>
+					
+					<button class="btn btn-outline-primary btn-block"  type="submit" th:text="${btn}" ></button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base/base::head(light)">
+<meta charset="UTF-8" />
+</head>
+<body>
+	<header th:replace="base/base::header(light)"></header>
+
+	<div class="container" style="padding-top: 3em;">
+		<div class="card bg-light">
+			<div class="card-header">
+				<h3 th:text="'Lista de empleados'"></h3>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th th:text="'NOMBRE'"></th>
+							<th th:text="'APELLIDO'"></th>
+							<th th:text="'SALARIO'"></th>
+							<th th:text="'FECHA DE INGRESO'"></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="empleado: ${empleados}">
+							<td th:text="${empleado.nombre}"></td>
+							<td th:text="${empleado.apellido}"></td>
+							<td th:text="${empleado.salario}"></td>
+							<td th:text="${empleado.fechaIngreso}"></td>
+							<td><a th:href="@{/empleados/detalle/} + ${empleado.id}"
+								th:text="Proyectos" class="btn btn-outline-success mr-1"></a><a
+								th:href="@{/empleados/form/} + ${empleado.id}" th:text="Editar"
+								class="btn btn-outline-primary"></a> <a
+								th:href="@{/empleados/eliminar/} + ${empleado.id}"
+								th:text="Eliminar" class="btn btn-outline-danger"></a></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5"><a th:href="@{form}"
+								class="btn btn-outline-primary btn-block"
+								th:text="'Añadir nuevo empleado'"></a></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

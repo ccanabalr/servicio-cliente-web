@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base/base::head(light)">
+<meta charset="UTF-8" />
+</head>
+<body>
+	<header th:replace="base/base::header(light)"></header>
+
+	<div class="container" style="padding-top: 3em;">
+		<div class="card bg-light">
+			<div class="card-header">
+				<h3 th:text="'Lista de proyectos'"></h3>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th th:text="'FECHA DE INICIO'"></th>
+							<th th:text="'FECHA ESTIMADA FIN'"></th>
+							<th th:text="'RECURSOS'"></th>
+							<th th:text="'PRESUPUESTO'"></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="proyecto: ${proyectos}">
+							<td th:text="${proyecto.fechaInicio}"></td>
+							<td th:text="${proyecto.fechaEstimadaFin}"></td>
+							<td th:text="${proyecto.recursos}"></td>
+							<td th:text="${proyecto.presupuesto}"></td>
+							<td><a th:href="@{/proyectos/form/} + ${proyecto.id}" th:text="Editar"
+								class="btn btn-outline-primary"></a> <a
+								th:href="@{/proyectos/eliminar/} + ${proyecto.id}" th:text="Eliminar"
+								class="btn btn-outline-danger"></a></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5"><a th:href="@{form}"
+								class="btn btn-outline-primary btn-block"
+								th:text="'Añadir nuevo empleado'"></a></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

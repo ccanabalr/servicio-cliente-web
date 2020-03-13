@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base/base::head(light)">
+<meta charset="UTF-8" />
+</head>
+<body>
+	<header th:replace="base/base::header(light)"></header>
+
+	<div class="container" style="padding-top: 3em;">
+		<div class="card bg-light">
+			<div class="card-header">
+				<h3 th:text="${titulo}"></h3>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/empleados/guardarEmpleadoProyecto}" th:object="${empleado}"
+					method="post" action="">
+					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{nombre}">
+					<input type="hidden" th:field="*{apellido}">
+					<input type="hidden" th:field="*{salario}">
+					<input type="hidden" th:field="*{fechaIngreso}">
+					<ul class="list-group">
+						<li class="list-group-item active"
+							th:text="'Información del empleado'">
+						</li>
+						<li class="list-group-item"
+							th:text="'NOMBRE: '+${empleado.nombre}"></li>
+						<li class="list-group-item"
+							th:text="'APELLIDO: '+${empleado.apellido}">
+							
+							</li>
+						<li class="list-group-item"
+							th:text="'SALARIO: '+${empleado.salario}">
+							
+							</li>
+						<li class="list-group-item"
+							th:text="'FECHA INGRESO: '+${empleado.fechaIngreso}">
+							
+							</li>
+					</ul>
+
+					<div class="form-group row mt-2 col-sm-12">
+						<label for="buscar_producto" class=" col-form-label"
+							th:text="'BUSCAR PROYECTO: '"></label> <input type="text"
+							name="buscar_proyecto" id="buscar_proyecto" class="form-control" />
+
+					</div>
+
+					<table th:replace="empleados/plantilla-proyectos::itemsProyecto"></table>
+
+					<table id="cargarItemProyecto"
+						class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th>FECHA INICIO</th>
+								<th>PRESUPUESTO</th>
+								<th>ELIMINAR</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+					<button class="btn btn-outline-primary btn-block" type="submit"
+						th:text="${btn}"></button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="base/base::footer(light)"></footer>
+	<script th:replace="empleados/js/autocompleted-proyecto::javascript"></script>
+</body>
+</html>

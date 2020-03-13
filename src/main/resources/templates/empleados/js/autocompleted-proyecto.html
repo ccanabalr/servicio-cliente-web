@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+	<script type="text/javascript" th:fragment="javascript">
+	$(document).ready(
+			function(){
+				$("#buscar_proyecto").autocomplete({
+					
+					source: function(request, response){
+						$.ajax({
+							url: "/empleados/cargar-proyectos/" + request.term,
+							dataType: "json",
+							data:{
+							},
+							success: function(data){
+								response($.map(data, function(item){
+									return {
+										value: item.id,
+										label: item.fechaInicio,
+										presupuesto: item.presupuesto,
+									};
+								}));
+							}
+						});
+					},
+					select: function(event, ui){
+						//$("#buscar_proyecto").val(ui.item.label);
+						if(itemHelper.hasProyecto(ui.item.value)){
+							return false;
+						}
+						var linea = $("#plantillaItemsProyecto").html();
+						linea = linea.replace(/{ID}/g, ui.item.value);
+						linea = linea.replace(/{FECHA_INICIO}/g, ui.item.label);
+						linea = linea.replace(/{PRESUPUESTO}/g, ui.item.presupuesto);
+						
+						$("#cargarItemProyecto tbody").append(linea);
+						return false;
+					}
+				});
+				$("form").submit(function(){
+					$('#plantillaItemsProyecto').remove();
+					return;
+				});
+			}
+	);
+	
+	var itemHelper = {
+			hasProyecto: function(id){
+				var resultado = false;
+				$('input[name="item_id[]"]').each(function(){
+					if(parseInt(id) == parseInt($(this).val())){
+						resultado = true;
+					}
+				});
+				return resultado
+			},
+			eliminarLineaProyecto: function(id){
+				$("#row_"+ id).remove();
+			}
+			
+	}
+	
+	
+</script>
+
+</body>
+</html>
